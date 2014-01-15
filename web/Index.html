@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Experience</title>
+    <script type='text/javascript' src='vendor/jquery/jquery.min.js'></script>
+    <script type='text/javascript' src='vendor/knockout/build/knockout-raw.js'></script>
+    <script type='text/javascript' src='../src/Rakuten/ExperienceBundle/Resources/public/js/script.js'></script>
+    <link rel="stylesheet" type="text/css" href="css/Style.css">
+
+</head>
+<body>
+
+<button data-bind="click: addTask, enable: tasks().length < 5">New Task</button>
+
+<div>
+    all <input type="checkbox" data-bind='checked: all' />
+    <button data-bind='click: deleteAll, visible: incompleteTasks().length == 0'>delete All</button>
+</div>
+
+<div id="tasksList">
+    <ul data-bind="foreach: tasks, visible: tasks().length > 0">
+        <li>
+            <input type="checkbox" data-bind="checked: isDone" />
+            <input data-bind="value: title, disable: isDone" />
+            <a href="#" data-bind="click: $parent.removeTask">Delete</a>
+        </li>
+    </ul>
+</div>
+
+You have <b data-bind="text: incompleteTasks().length">&nbsp;</b> incomplete task(s)
+
+</body>
+</html>

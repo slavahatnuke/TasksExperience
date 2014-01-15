@@ -1,0 +1,44 @@
+apache:
+  if:   which apachectl
+  else: sudo apt-get install -y apache2
+
+php:
+  if:   which php
+  else: ./php/install.sh
+
+php.ini - apache2:
+  if:   cmp  /etc/php5/apache2/conf.d/php.ini /vagrant/vitality/php/php.ini
+  else: sudo cp /vagrant/vitality/php/php.ini /etc/php5/apache2/conf.d/php.ini && sudo service apache2 reload
+
+php.ini - cli:
+  if:   cmp  /etc/php5/cli/conf.d/php.ini /vagrant/vitality/php/php.ini
+  else: sudo cp /vagrant/vitality/php/php.ini /etc/php5/cli/conf.d/php.ini
+
+symfony2:
+  if:   cat /home/vagrant/project/app/console && php /home/vagrant/project/app/console | grep Symfony
+  else: cd symfony2 && sudo vitality symfony2.yml
+
+vhost:
+  if:   cmp /etc/apache2/sites-available/project.conf /vagrant/vitality/apache/project.conf
+  else: cd apache && sudo vitality server.yml
+
+php mysql:
+  if:   php -i | grep pdo_mysql
+  else: sudo apt-get -y install php5-mysql
+
+git:
+  if: which git
+  else: sudo apt-get -y install git-core
+
+mysql:
+  if:   which mysql
+  else: sudo ./mysql/install.sh
+
+mongo:
+  if:   which mongo
+  else: sudo apt-get install -y mongodb
+
+sf alias:
+  if: cat ~/.bashrc | grep sf
+  else: echo "alias sf='php app/console'" >> ~/.bashrc && source ~/.bashrc
+

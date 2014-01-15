@@ -1,0 +1,27 @@
+curl:
+  if:   which curl
+  else: sudo apt-get install -y curl
+
+composer:
+  if:   which composer.phar
+  else: sudo curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/
+
+download sf2:
+  if:   cat /home/vagrant/project/app/console || cat /home/vagrant/tmpsf2/app/console
+  else: composer.phar create-project symfony/framework-standard-edition /home/vagrant/tmpsf2/
+
+copy sf2:
+  if:   cat /home/vagrant/project/app/console
+  else: cp -r /home/vagrant/tmpsf2/* /home/vagrant/project/
+
+acl:
+  if:   which setfacl
+  else: sudo apt-get install -y acl
+
+permissions:
+  if:  cd /home/vagrant/project/ && vm/vitality/symfony2/permissions.sh
+
+
+#remove /tmp/sf2/:
+#  if:   cat /home/vagrant/project/app/console
+#  else: cp -r /tmp/sf2/* /home/vagrant/project/

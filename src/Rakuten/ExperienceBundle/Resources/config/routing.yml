@@ -1,0 +1,16 @@
+rakuten_experience_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: RakutenExperienceBundle:Default:index }
+
+rakuten_experience_user_all:
+    pattern:  /tasks
+    defaults: { _controller: RakutenExperienceBundle:Task:all, _format: ~ }
+    requirements:
+        _method: GET
+
+rakuten_experience_user_get:
+    pattern:  /tasks/{id}
+    defaults: { _controller: RakutenExperienceBundle:Task:get, _format: ~ }
+    requirements:
+        _method: GET
+        id: "\d+"

@@ -1,0 +1,7 @@
+{
+  "name": "knokoutexperience",
+  "dependencies": {
+    "jquery": "2.0.*",
+    "knockout": "3.0.0"
+  }
+}

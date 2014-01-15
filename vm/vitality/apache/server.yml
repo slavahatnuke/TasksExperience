@@ -1,0 +1,19 @@
+remove vhost:
+  if:  sudo rm /etc/apache2/sites-available/project.conf
+
+update vhost:
+  if:   cat /etc/apache2/sites-available/project.conf
+  else: sudo cp /vagrant/vitality/apache/project.conf /etc/apache2/sites-available/project.conf
+
+enable vhost:
+  if:   cat /etc/apache2/sites-enabled/project.conf
+  else: sudo a2ensite project.conf
+
+apache reload:
+  if: sudo service apache2 reload
+
+disable default:
+  if:  sudo a2dissite default || sudo a2dissite default 000-default.conf
+
+apache reload again:
+  if: sudo service apache2 reload

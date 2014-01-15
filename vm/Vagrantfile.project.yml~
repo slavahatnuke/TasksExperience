@@ -1,0 +1,32 @@
+# Project
+
+project: Symfony2
+
+memory: 512
+cpus: 1
+
+ip:  192.168.80.80
+nfs: true
+
+sync:
+  "..": "/home/vagrant/project"
+
+ports: []
+
+provision:
+  vitality: 'which vitality || /vagrant/Vagrantfile.install.vitality.sh'
+  install:  '/vagrant/Vagrantfile.install.sh'
+
+# System
+
+gui: false
+vram: 16
+
+box: precise32
+box_url: http://files.vagrantup.com/precise32.box
+guest: ubuntu
+
+acpi: "on"
+ioapic: "on"
+
+nonrotational: true
