@@ -14,6 +14,14 @@ php.ini - cli:
   if:   cmp  /etc/php5/cli/conf.d/php.ini /vagrant/vitality/php/php.ini
   else: sudo cp /vagrant/vitality/php/php.ini /etc/php5/cli/conf.d/php.ini
 
+curl:
+  if:   which curl
+  else: sudo apt-get install -y curl
+
+composer:
+  if:   which composer.phar
+  else: sudo curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/
+
 symfony2:
   if:   cat /home/vagrant/project/app/console && php /home/vagrant/project/app/console | grep Symfony
   else: cd symfony2 && sudo vitality symfony2.yml
@@ -39,6 +47,9 @@ mongo:
   else: sudo apt-get install -y mongodb
 
 sf alias:
-  if: cat ~/.bashrc | grep sf
-  else: echo "alias sf='php app/console'" >> ~/.bashrc && source ~/.bashrc
+  if: cat /home/vagrant/.bashrc | grep sf
+  else: echo "alias sf='php app/console'" >> /home/vagrant/.bashrc && source /home/vagrant/.bashrc
 
+composer install:
+  if: cmp /tmp/composer.json /home/vagrant/project/composer.json
+  else: cd /home/vagrant/project && composer.phar install && cp composer.json /tmp/composer.json
