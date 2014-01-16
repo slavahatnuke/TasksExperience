@@ -2,3 +2,6 @@ rakuten_experience:
     resource: "@RakutenExperienceBundle/Resources/config/routing.yml"
     prefix:   /
 
+tasks:
+    type:     rest
+    resource: Rakuten\ExperienceBundle\Controller\TaskController

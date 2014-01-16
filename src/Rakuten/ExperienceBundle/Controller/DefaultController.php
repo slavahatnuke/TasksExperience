@@ -7,17 +7,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        $task = new Task();
-        $task->setTitle('task number one');
-        $task->setIsDone(true);
-        $em = $this->getDoctrine()->getManager();
+        return $this->render('RakutenExperienceBundle:Default:index.html.twig');
+    }
 
-        $em->persist($task);
+    public function testAction()
+    {
+        return $this->render('RakutenExperienceBundle:Default:index2.html.twig');
+    }
 
-        $em->flush();
+    public function newAction()
+    {
 
-        return $this->render('RakutenExperienceBundle:Default:index.html.twig', array('name' => $name));
     }
 }

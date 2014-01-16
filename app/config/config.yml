@@ -71,6 +71,7 @@ swiftmailer:
 sensio_framework_extra:
     view: { annotations: false }
     router: { annotations: true }
+    request: { converters: true }
 
 # FOS Rest Bundle Configuration
 fos_rest:

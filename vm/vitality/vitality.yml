@@ -34,6 +34,10 @@ php mysql:
   if:   php -i | grep pdo_mysql
   else: sudo apt-get -y install php5-mysql
 
+php xdebug:
+  if:   php -i | grep xdebug
+  else: sudo apt-get -y install php5-xdebug
+
 git:
   if: which git
   else: sudo apt-get -y install git-core

@@ -1,16 +1,38 @@
 rakuten_experience_homepage:
     pattern:  /hello/{name}
+    defaults: { _controller: RakutenExperienceBundle:Default:test }
+
+rakuten_experience_homepage2:
+    pattern:  /
     defaults: { _controller: RakutenExperienceBundle:Default:index }
 
-rakuten_experience_user_all:
+rakuten_experience_task_all:
     pattern:  /tasks
     defaults: { _controller: RakutenExperienceBundle:Task:all, _format: ~ }
     requirements:
         _method: GET
 
-rakuten_experience_user_get:
+rakuten_experience_task_get:
     pattern:  /tasks/{id}
     defaults: { _controller: RakutenExperienceBundle:Task:get, _format: ~ }
     requirements:
         _method: GET
         id: "\d+"
+
+rakuten_experience_task_new:
+    pattern:  /tasks
+    defaults: { _controller: RakutenExperienceBundle:Task:new, _format: ~ }
+    requirements:
+        _method: POST
+
+rakuten_experience_task_put:
+    pattern:  /tasks/{id}
+    defaults: { _controller: RakutenExperienceBundle:Task:put, _format: ~ }
+    requirements:
+        _method: POST
+
+rakuten_experience_task_delete:
+    pattern:  /tasks/{id}
+    defaults: { _controller: RakutenExperienceBundle:Task:remove, _format: ~ }
+    requirements:
+        _method: DELETE
