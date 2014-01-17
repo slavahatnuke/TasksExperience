@@ -1,0 +1,25 @@
+parameters:
+#    Rakut_experience.example.class: Rakut\ExperienceBundle\Example
+
+services:
+#    Rakut_experience.example:
+#        class: %Rakut_experience.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    repository.abstract:
+        abstract:                                                 true
+        public:                                                   false
+        factory_service:                                          doctrine.orm.entity_manager
+        factory_method:                                           getRepository
+
+    repository.task:
+        class:                                                    Rakut\ExperienceBundle\Entity\TaskRepository
+        parent:                                                   repository.abstract
+        public:                                                   true
+        arguments:                                                [ Rakut\ExperienceBundle\Entity\Task ]
+
+#forms
+    form.task:
+        class:                                                    Rakut\ExperienceBundle\Form\Type\TaskType
+        tags:
+            -                                                     { name: form.type, alias: task }

@@ -73,6 +73,12 @@ sensio_framework_extra:
     router: { annotations: true }
     request: { converters: true }
 
+# FOS User Bundle Configuration
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Rakut\ExperienceBundle\Entity\User
+
 # FOS Rest Bundle Configuration
 fos_rest:
     view:

@@ -1,0 +1,3 @@
+FansFeed_ApiController:
+    resource: "Rakut\\ExperienceBundle\\Controller\\TaskController"
+    type:     rest
