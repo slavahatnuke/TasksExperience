@@ -5,3 +5,6 @@ Rakut_experience:
 RakutExperienceRest:
     resource: "@RakutExperienceBundle/Resources/config/routing_rest.yml"
     type: rest
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

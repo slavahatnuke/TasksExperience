@@ -9,7 +9,7 @@ $(function() {
         this.isDone = ko.observable(false);
 
         self.putTask = function() {
-            $.ajax("/tasks/"+self.id(), {
+            $.ajax(Routing.generate('put_task', { id: self.id() }), {
                 data: ko.toJSON(self),
                 type: "put", contentType: "application/json"
             });
@@ -31,8 +31,8 @@ $(function() {
         self.all = ko.observable(false);
 
         self.getTasks = function() {
-            $.getJSON("/tasks", function(data) {
-                ko.mapping.fromJS(data.tasks, mapping, self.tasks);
+            $.getJSON(Routing.generate('get_tasks'), function(data) {
+                ko.mapping.fromJS(data, mapping, self.tasks);
             });
         };
 
@@ -55,38 +55,22 @@ $(function() {
         });
 
         self.addTask = function() {
-            var task = new Task({ title: " "});
-            self.tasks.push(task);
-            $.ajax("/tasks", {
-                data: ko.toJSON(task),
-                type: "post", contentType: "application/json",
-                success: function() {
-                    self.getTasks();
-                }
+            var task = new Task();
+            $.getJSON(Routing.generate('new_tasks'), function(data) {
+                ko.mapping.fromJS(data, mapping, task);
+                self.tasks.push(task);
             });
+
         };
 
         self.removeTask = function(task) {
-            $.ajax("/tasks/"+task.id(), {
+            $.ajax(Routing.generate('delete_task', { id: task.id() }), {
                 type: "delete",
                 success: function() {
                     self.tasks.remove(task)
                 }
             });
         };
-
-        self.newitem = function() {
-            $.ajax("/tasks", {
-                data: ko.toJSON(new Task({ title: "new task"})),
-                type: "post", contentType: "application/json"
-            });
-        };
-
-        self.checkAll = function() {
-            for (var i = 0; i < self.tasks().length; i++)
-                self.tasks()[i].isDone(true);
-        }
-
     }
 
     ko.applyBindings(new TaskListViewModel());

@@ -3,6 +3,7 @@
 namespace Rakut\ExperienceBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Rakut\ExperienceBundle\Entity\Task;
 use Rakut\ExperienceBundle\Entity\User;
 
 class TaskController extends RestController
@@ -17,7 +18,7 @@ class TaskController extends RestController
         $this->forward401UnlessAuthenticatedUser();
         $tasks = $user->getTasks();
 
-        return array('tasks' => $tasks);
+        return $tasks;
     }
 
     /**
@@ -30,7 +31,25 @@ class TaskController extends RestController
         $this->forward401UnlessAuthenticatedUser();
         $this->forward404Unless($task = $user->getTasks()->get($id), 'Task was not found');
 
-        return array('task' => $task);
+        return $task;
+    }
+
+    /**
+     * @Rest\View()
+     *
+     * @return array
+     */
+    public function newTasksAction()
+    {
+        /** @var $user User */
+        $user = $this->getUser();
+        $task = new Task();
+        $task->setIsDone(false);
+        $user->addTask($task);
+        $this->getDoctrine()->getManager()->persist($task);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $task;
     }
 
     /**
